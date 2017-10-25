@@ -15,9 +15,11 @@ class ApplicationController < Sinatra::Base
   get "/signup" do
     erb :signup
   end
-
+  
   post "/signup" do
+    # Assign params to new user instance
     user = User.new(params)
+    # If user can be saved to db, send to account page, else error page
     if user.save
       redirect '/account'
     else
