@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
   get "/signup" do
     erb :signup
   end
-  
+
   post "/signup" do
     # Assign params to new user instance
     user = User.new(params)
@@ -38,7 +38,10 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/login" do
+    # Find the user by username
     user = User.find_by(:username => params[:username])
+    # If user exists & password matches, set session[:user_id] to user.id
+    # If success go to account page, else failure page
     if user && user.authenticate(params[:password])
 			session[:user_id] = user.id
 			redirect '/account'
